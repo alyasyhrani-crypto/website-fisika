@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-LKPD Interaktif Aturan Angka Penting - Fisika Kelas X SMA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelPurple: '#A78BFA',
+                        brightBlue: '#60A5FA',
+                        sunYellow: '#FACC15',
+                        mintGreen: '#6EE7B7',
+                        softPink: '#FDA4AF',
+                        darkBg: '#0F172A',
+                        cardBg: '#FFFFFF'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #fdf4ff 0%, #e0f2fe 50%, #d1fae5 100%); min-height: 100vh; }
+        .glass-card { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); border: 2px solid rgba(167, 139, 250, 0.3); }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 15px rgba(96, 165, 250, 0.4); } 50% { box-shadow: 0 0 30px rgba(167, 139, 250, 0.7); } }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #a78bfa; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb-hover:hover { background: #8b5cf6; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <div id="app" class="flex-1 flex flex-col">
+        
+        <!-- NAVBAR / HEADER -->
+        <header class="bg-gradient-to-r from-purple-500 via-indigo-500 to-sky-400 text-white shadow-xl sticky top-0 z-50 border-b-4 border-yellow-300">
+            <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-yellow-300 text-purple-900 p-2.5 rounded-2xl shadow-md text-xl font-bold flex items-center justify-center transform hover:rotate-12 transition">
+                        <i class="fa-solid fa-atom animate-spin" style="animation-duration: 8s;"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg sm:text-xl tracking-wide drop-shadow">Aturan Angka Penting</h1>
+                        <p class="text-xs text-yellow-100 font-medium">SMA Al Islam | Fase E / Kelas X (Guided Discovery Learning)</p>
+                    </div>
+                </div>
+                <div id="nav-user-info" class="hidden items-center space-x-4 mt-2 sm:mt-0">
+                    <span id="nav-greeting" class="text-sm font-bold bg-white/25 px-4 py-1.5 rounded-full shadow-inner"></span>
+                    <button onclick="logout()" class="bg-pink-500 hover:bg-pink-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-md hover:scale-105">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN VIEW CONTAINER -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6">
+            
+            <!-- VIEW 1: LANDING PAGE -->
+            <div id="view-landing" class="space-y-10 py-6">
+                <!-- Hero Section with Balanced Alignment -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <!-- Left Column: Typography & Action Buttons -->
+                    <div class="lg:col-span-7 space-y-6 text-left">
+                        <div class="inline-flex items-center space-x-2 bg-yellow-300 text-purple-900 px-4 py-2 rounded-full text-sm font-extrabold shadow-md transform -rotate-1">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-700 animate-bounce"></i>
+                            <span>Model Guided Discovery Learning</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight tracking-tight">
+                            🔬 E-LKPD Interaktif <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">Aturan Angka Penting</span>
+                        </h2>
+                        <p class="text-lg text-slate-700 font-semibold leading-relaxed bg-white/60 p-4 rounded-2xl border border-purple-200 shadow-sm">
+                            “Jadilah Detektif Sains! Amati Hasil Pengukuran, Temukan Aturan Angka Penting, dan Buktikan Ketelitianmu.”
+                        </p>
+                        <div class="glass-card p-5 rounded-3xl space-y-3 text-sm text-slate-700 shadow-md">
+                            <div class="flex items-center space-x-3"><i class="fa-solid fa-school text-blue-500 w-5 text-lg"></i><span><strong>Satuan Pendidikan:</strong> SMA Al Islam</span></div>
+                            <div class="flex items-center space-x-3"><i class="fa-solid fa-book text-purple-500 w-5 text-lg"></i><span><strong>Mata Pelajaran:</strong> Fisika (Bab: Pengukuran dalam Kerja Ilmiah)</span></div>
+                            <div class="flex items-center space-x-3"><i class="fa-solid fa-user-pen text-emerald-500 w-5 text-lg"></i><span><strong>Penyusun:</strong> Alya Syahrani</span></div>
+                        </div>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="showStudentLogin()" class="flex-1 min-w-[200px] bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 hover:opacity-95 text-white font-extrabold py-4 px-6 rounded-2xl shadow-xl transition transform hover:-translate-y-1 flex items-center justify-center space-x-3 border-2 border-yellow-300">
+                                <i class="fa-solid fa-user-graduate text-2xl text-yellow-300"></i>
+                                <span class="text-base tracking-wide">MASUK SEBAGAI SISWA</span>
+                            </button>
+                            <button onclick="showTeacherLogin()" class="bg-slate-900 hover:bg-slate-800 text-yellow-300 font-extrabold py-4 px-6 rounded-2xl shadow-xl transition transform hover:-translate-y-1 flex items-center justify-center space-x-3 border-2 border-purple-400">
+                                <i class="fa-solid fa-chalkboard-user text-2xl"></i>
+                                <span class="text-base tracking-wide">MASUK SEBAGAI GURU</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Realistic Laboratory Illustration Container -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-full max-w-md bg-gradient-to-b from-indigo-950 via-purple-950 to-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl float-anim pulse-glow border-4 border-yellow-400">
+                            <!-- Refined Realistic Laboratory SVG Illustration -->
+                            <svg viewBox="0 0 500 420" class="w-full h-auto drop-shadow-2xl">
+                                <!-- Laboratory Wall & Shelf Background -->
+                                <rect x="25" y="25" width="450" height="370" rx="16" fill="#1e293b" opacity="0.9"/>
+                                <line x1="25" y1="315" x2="475" y2="315" stroke="#facc15" stroke-width="6"/>
+                                <rect x="45" y="320" width="410" height="14" fill="#0f172a" rx="4"/>
+                                
+                                <!-- Digital Scale Instrument (Left) -->
+                                <g transform="translate(50, 195)">
+                                    <rect x="0" y="75" width="130" height="45" fill="#334155" rx="8" stroke="#a78bfa" stroke-width="2"/>
+                                    <rect x="15" y="88" width="100" height="22" fill="#0284c7" rx="4"/>
+                                    <text x="42" y="104" font-size="13" font-family="monospace" font-weight="bold" fill="#38bdf8">125 g</text>
+                                    <rect x="10" y="60" width="110" height="18" fill="#94a3b8" rx="4"/>
+                                    <!-- Metal Sample Block on Balance -->
+                                    <rect x="42" y="32" width="46" height="28" fill="#facc15" rx="5" stroke="#ca8a04" stroke-width="2"/>
+                                </g>
+
+                                <!-- Graduated Cylinder Instrument (Right) -->
+                                <g transform="translate(315, 135)">
+                                    <ellipse cx="45" cy="180" rx="40" ry="9" fill="#a78bfa"/>
+                                    <rect x="24" y="15" width="42" height="165" fill="#e2e8f0" opacity="0.25" stroke="#38bdf8" stroke-width="2.5" rx="6"/>
+                                    <path d="M26 80 L64 80 L64 176 C64 179 56 181 45 181 C34 181 26 179 26 176 Z" fill="#38bdf8" opacity="0.85"/>
+                                    <path d="M26 80 Q45 89 64 80" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+                                    <!-- Precision ticks -->
+                                    <line x1="16" y1="45" x2="24" y2="45" stroke="#cbd5e1" stroke-width="2"/>
+                                    <line x1="18" y1="80" x2="24" y2="80" stroke="#f43f5e" stroke-width="3"/>
+                                    <line x1="16" y1="115" x2="24" y2="115" stroke="#cbd5e1" stroke-width="2"/>
+                                    <text x="70" y="84" font-size="11" font-weight="bold" fill="#f43f5e">125,0 mL</text>
+                                </g>
+
+                                <!-- Precision Vernier Caliper & Flask Top Shelf -->
+                                <g transform="translate(170, 65)">
+                                    <!-- Ruler -->
+                                    <rect x="10" y="10" width="150" height="24" fill="#facc15" rx="4"/>
+                                    <line x1="22" y1="10" x2="22" y2="20" stroke="#713f12" stroke-width="2"/>
+                                    <line x1="34" y1="10" x2="34" y2="22" stroke="#713f12" stroke-width="2.5"/>
+                                    <line x1="46" y1="10" x2="46" y2="20" stroke="#713f12" stroke-width="2"/>
+                                    <text x="55" y="27" font-size="10" font-weight="bold" fill="#713f12">Penggaris Ukur</text>
+
+                                    <!-- Erlenmeyer Flask with Glowing Solution -->
+                                    <path d="M85 55 L85 85 L135 175 C140 185 130 195 120 195 L50 195 C40 195 30 185 35 175 L85 85 Z" fill="#34d399" opacity="0.3" stroke="#6ee7b7" stroke-width="2"/>
+                                    <path d="M55 145 L115 145 L126 182 C129 188 123 192 118 192 L52 192 C47 192 41 188 44 182 Z" fill="#10b981" opacity="0.9"/>
+                                </g>
+
+                                <!-- Central Interactive Badge Overlay -->
+                                <rect x="70" y="240" width="360" height="52" rx="26" fill="#0f172a" opacity="0.95" stroke="#facc15" stroke-width="3"/>
+                                <text x="250" y="272" font-size="15" font-weight="extrabold" fill="#facc15" text-anchor="middle">✨ Laboratorium Pengukuran Fisika Ceria</text>
+                            </svg>
+                            <div class="mt-4 text-center">
+                                <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-extrabold px-4 py-2 rounded-full shadow-lg inline-block border border-yellow-300">
+                                    🌟 Eksperimen & Penemuan Terbimbing Interaktif
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions Section -->
+                <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-xl space-y-4 border-2 border-purple-200">
+                    <h3 class="text-xl font-black text-purple-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-info text-blue-500 text-2xl"></i>
+                        <span>Petunjuk Penggunaan E-LKPD</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700">
+                        <div class="bg-purple-50 p-5 rounded-2xl border-2 border-purple-200 shadow-sm">
+                            <span class="font-extrabold text-purple-800 block mb-1 text-base">1. Alur Penemuan Terbimbing</span>
+                            Ikuti tahapan Stimulation, Problem Statement, Data Collection, Processing, Verification, hingga Generalization secara berurutan.
+                        </div>
+                        <div class="bg-sky-50 p-5 rounded-2xl border-2 border-sky-200 shadow-sm">
+                            <span class="font-extrabold text-sky-800 block mb-1 text-base">2. Amati & Jawab</span>
+                            Perhatikan ilustrasi gambar pengukuran dengan teliti, isi tabel pengamatan, dan selesaikan soal uraian dengan alasan ilmiah.
+                        </div>
+                        <div class="bg-emerald-50 p-5 rounded-2xl border-2 border-emerald-200 shadow-sm">
+                            <span class="font-extrabold text-emerald-800 block mb-1 text-base">3. Evaluasi & Nilai</span>
+                            Kerjakan kuis akhir evaluasi dan pantau kemajuan belajar serta umpan balik langsung dari guru Anda.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: STUDENT LOGIN -->
+            <div id="view-student-login" class="hidden max-w-md mx-auto my-12 glass-card rounded-3xl p-8 shadow-2xl border-2 border-purple-300 space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="inline-block bg-gradient-to-tr from-purple-500 to-pink-500 text-white p-4 rounded-2xl text-3xl mb-2 shadow-lg animate-bounce">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-purple-900">Masuk sebagai Siswa</h3>
+                    <p class="text-sm text-slate-600 font-medium">Masukkan identitas Anda untuk memulai E-LKPD.</p>
+                </div>
+                <form id="form-student-login" onsubmit="handleStudentLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-purple-900 mb-1">NAMA LENGKAP</label>
+                        <input type="text" id="student-name" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3.5 rounded-2xl border-2 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm font-medium bg-white/80">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-purple-900 mb-1">KELAS / FASE</label>
+                        <select id="student-class" class="w-full px-4 py-3.5 rounded-2xl border-2 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm font-medium bg-white/80">
+                            <option value="X-E1">X-E1 (Fase E)</option>
+                            <option value="X-E2">X-E2 (Fase E)</option>
+                            <option value="X-E3">X-E3 (Fase E)</option>
+                            <option value="X-E4">X-E4 (Fase E)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-4 rounded-2xl shadow-xl transition transform hover:scale-[1.02]">
+                        Mulai Belajar <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                    <button type="button" onclick="showLanding()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-2xl text-sm transition">
+                        Kembali
+                    </button>
+                </form>
+            </div>
+
+            <!-- VIEW 3: TEACHER LOGIN -->
+            <div id="view-teacher-login" class="hidden max-w-md mx-auto my-12 glass-card rounded-3xl p-8 shadow-2xl border-2 border-slate-700 space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="inline-block bg-slate-900 text-yellow-300 p-4 rounded-2xl text-3xl mb-2 shadow-lg">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-900">Dashboard Guru</h3>
+                    <p class="text-sm text-slate-600 font-medium">Masukkan kode akses guru yang valid.</p>
+                </div>
+                <form id="form-teacher-login" onsubmit="handleTeacherLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">KODE AKSES GURU</label>
+                        <input type="password" id="teacher-code-input" required placeholder="Contoh: GURU-AP2026" class="w-full px-4 py-3.5 rounded-2xl border-2 border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm font-medium bg-white/80">
+                        <p id="teacher-error-msg" class="text-rose-500 text-xs mt-1 font-bold hidden">Kode akses guru salah! Gunakan kode awal: GURU-AP2026</p>
+                    </div>
+                    <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-yellow-300 font-extrabold py-4 rounded-2xl shadow-xl transition transform hover:scale-[1.02]">
+                        Masuk Dashboard <i class="fa-solid fa-lock-open ml-2"></i>
+                    </button>
+                    <button type="button" onclick="showLanding()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-2xl text-sm transition">
+                        Kembali
+                    </button>
+                </form>
+            </div>
+
+            <!-- VIEW 4: STUDENT DASHBOARD & E-LKPD WORKSPACE -->
+            <div id="view-student-dashboard" class="hidden space-y-6">
+                <!-- Top User Welcome & Progress Header -->
+                <div class="glass-card rounded-3xl p-6 shadow-xl border-2 border-purple-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="text-xs uppercase font-extrabold text-purple-700 bg-purple-100 px-3.5 py-1.5 rounded-full shadow-sm">Dashboard Siswa</span>
+                        <h2 id="student-welcome-title" class="text-2xl font-black text-slate-900 mt-2">Halo, Nama Siswa!</h2>
+                        <p class="text-sm text-slate-600 font-medium">Ikuti langkah Guided Discovery Learning di bawah ini secara runtut.</p>
+                    </div>
+                    <div class="w-full md:w-72 bg-purple-50 p-4 rounded-2xl border border-purple-200 space-y-2 shadow-inner">
+                        <div class="flex justify-between text-xs font-bold text-purple-900">
+                            <span>Progress Pengerjaan</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <div class="w-full bg-purple-200 h-3.5 rounded-full overflow-hidden shadow-inner">
+                            <div id="progress-bar-fill" class="bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 h-full w-0 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs for E-LKPD Stages -->
+                <div class="flex overflow-x-auto space-x-2 pb-2 glass-card p-3 rounded-2xl shadow-md border border-purple-200">
+                    <button onclick="switchStudentTab('materi')" id="tab-btn-materi" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-extrabold bg-purple-600 text-white shadow-md transition">
+                        <i class="fa-solid fa-book-open mr-1.5"></i> Materi & Contoh
+                    </button>
+                    <button onclick="switchStudentTab('stage1')" id="tab-btn-stage1" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        1. Stimulation
+                    </button>
+                    <button onclick="switchStudentTab('stage2')" id="tab-btn-stage2" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        2. Problem Statement
+                    </button>
+                    <button onclick="switchStudentTab('stage3')" id="tab-btn-stage3" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        3. Data Collection
+                    </button>
+                    <button onclick="switchStudentTab('stage4')" id="tab-btn-stage4" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        4. Data Processing
+                    </button>
+                    <button onclick="switchStudentTab('stage5')" id="tab-btn-stage5" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        5. Verification
+                    </button>
+                    <button onclick="switchStudentTab('stage6')" id="tab-btn-stage6" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        6. Generalization
+                    </button>
+                    <button onclick="switchStudentTab('stage7')" id="tab-btn-stage7" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        7. Kuis Evaluasi
+                    </button>
+                    <button onclick="switchStudentTab('stage8')" id="tab-btn-stage8" class="tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition">
+                        8. Refleksi & Status
+                    </button>
+                </div>
+
+                <!-- TAB CONTENT CONTAINER -->
+                <div id="student-tab-content" class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-purple-200 space-y-6">
+                    <!-- Dynamic Tab Body injected via JS -->
+                </div>
+            </div>
+
+            <!-- VIEW 5: TEACHER DASHBOARD -->
+            <div id="view-teacher-dashboard" class="hidden space-y-6">
+                <!-- Teacher Header & Stats -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 text-white rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6 border-2 border-yellow-400">
+                    <div>
+                        <div class="inline-block bg-yellow-400 text-slate-900 text-xs font-black px-3.5 py-1.5 rounded-full mb-2 shadow">Panel Kontrol Guru</div>
+                        <h2 class="text-2xl sm:text-3xl font-black">Dashboard Rekapitulasi E-LKPD</h2>
+                        <p class="text-sm text-slate-300 mt-1 font-medium">Kelola data peserta didik, periksa jawaban uraian, berikan umpan balik, dan ekspor nilai.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="exportCSV()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-5 py-3 rounded-2xl text-sm shadow-xl transition flex items-center space-x-2 transform hover:scale-105">
+                            <i class="fa-solid fa-file-csv text-lg"></i><span>Ekspor CSV</span>
+                        </button>
+                        <button onclick="resetTeacherData()" class="bg-pink-600 hover:bg-pink-500 text-white font-extrabold px-5 py-3 rounded-2xl text-sm shadow-xl transition flex items-center space-x-2 transform hover:scale-105">
+                            <i class="fa-solid fa-trash-can text-lg"></i><span>Reset Data Demo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Summary Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-5 rounded-3xl shadow-md border-2 border-purple-200 space-y-1">
+                        <span class="text-xs font-black text-purple-700 uppercase tracking-wide">Total Siswa Mengakses</span>
+                        <h3 id="stat-total-students" class="text-3xl font-black text-slate-900">0</h3>
+                    </div>
+                    <div class="glass-card p-5 rounded-3xl shadow-md border-2 border-indigo-200 space-y-1">
+                        <span class="text-xs font-black text-indigo-700 uppercase tracking-wide">Sudah Kumpul LKPD/Kuis</span>
+                        <h3 id="stat-submitted" class="text-3xl font-black text-indigo-600">0</h3>
+                    </div>
+                    <div class="glass-card p-5 rounded-3xl shadow-md border-2 border-amber-200 space-y-1">
+                        <span class="text-xs font-black text-amber-700 uppercase tracking-wide">Belum Kumpul</span>
+                        <h3 id="stat-pending" class="text-3xl font-black text-amber-500">0</h3>
+                    </div>
+                    <div class="glass-card p-5 rounded-3xl shadow-md border-2 border-emerald-200 space-y-1">
+                        <span class="text-xs font-black text-emerald-700 uppercase tracking-wide">Rata-rata Nilai Kuis</span>
+                        <h3 id="stat-avg-score" class="text-3xl font-black text-emerald-600">0</h3>
+                    </div>
+                </div>
+
+                <!-- Teacher Navigation Sub-Tabs -->
+                <div class="flex flex-wrap gap-2 glass-card p-3 rounded-2xl shadow-md border border-purple-200">
+                    <button onclick="switchTeacherTab('students')" id="t-tab-students" class="t-tab-btn px-5 py-2.5 rounded-xl text-xs font-extrabold bg-slate-900 text-white shadow transition">Daftar Siswa & Respons</button>
+                    <button onclick="switchTeacherTab('grading')" id="t-tab-grading" class="t-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-100 transition">Pemeriksaan LKPD & Uraian</button>
+                    <button onclick="switchTeacherTab('settings')" id="t-tab-settings" class="t-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-100 transition">Pengaturan Kode Guru</button>
+                </div>
+
+                <!-- Teacher Content Panel -->
+                <div id="teacher-content-panel" class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-purple-200">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="glass-card border-t-2 border-purple-200 mt-auto py-5 text-center text-xs font-semibold text-slate-600 shadow-inner">
+            <p>E-LKPD Interaktif Aturan Angka Penting &copy; 2026 | Alya Syahrani - SMA Al Islam</p>
+        </footer>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- APPLICATION STATE ---
+        let currentUser = null; 
+        let currentStudentTab = 'materi';
+        let currentTeacherTab = 'students';
+        let teacherAccessCode = localStorage.getItem('teacher_access_code') || 'GURU-AP2026';
+
+        let studentData = JSON.parse(localStorage.getItem('elkpd_student_data') || '{}');
+
+        // --- HELPER FUNCTIONS ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto px-5 py-3.5 rounded-2xl text-white font-bold text-xs sm:text-sm shadow-2xl flex items-center space-x-3 transition transform translate-y-2 animate-bounce ${type === 'success' ? 'bg-emerald-600' : type === 'error' ? 'bg-rose-600' : 'bg-purple-600'} border-2 border-white/30`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-yellow-300' : type === 'error' ? 'fa-circle-exclamation text-yellow-300' : 'fa-circle-info text-yellow-300'} text-lg"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- SAFE STORAGE SYNCHRONIZATION ---
+        function getStudentDataStorage() {
+            try {
+                return JSON.parse(localStorage.getItem('elkpd_student_data') || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveStudentDataStorage() {
+            try {
+                localStorage.setItem('elkpd_student_data', JSON.stringify(studentData));
+            } catch (e) {
+                console.error("Storage error:", e);
+            }
+        }
+
+        function switchView(viewId) {
+            ['view-landing', 'view-student-login', 'view-teacher-login', 'view-student-dashboard', 'view-teacher-dashboard'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            const navUserInfo = document.getElementById('nav-user-info');
+            if (viewId === 'view-student-dashboard' || viewId === 'view-teacher-dashboard') {
+                navUserInfo.classList.remove('hidden');
+                navUserInfo.classList.add('flex');
+            } else {
+                navUserInfo.classList.add('hidden');
+                navUserInfo.classList.remove('flex');
+            }
+        }
+
+        function showLanding() { switchView('view-landing'); }
+        function showStudentLogin() { switchView('view-student-login'); }
+        function showTeacherLogin() { switchView('view-teacher-login'); }
+
+        function logout() {
+            currentUser = null;
+            showLanding();
+            showToast('Berhasil keluar.', 'info');
+        }
+
+        // --- AUTHENTICATION ---
+        function handleStudentLogin(e) {
+            e.preventDefault();
+            const name = document.getElementById('student-name').value.trim();
+            const classVal = document.getElementById('student-class').value;
+            if (!name) return;
+
+            // Load fresh data on login
+            studentData = getStudentDataStorage();
+
+            currentUser = { name, role: 'student', classVal };
+            document.getElementById('nav-greeting').innerText = `${name} (${classVal})`;
+
+            if (!studentData[name]) {
+                studentData[name] = {
+                    name, classVal,
+                    stage1: {}, stage2: {}, stage3: { table1:{}, table2:{}, soalA:{}, soalB:{}, soalC:{} },
+                    stage4: {}, stage5: {}, stage6: {}, quiz: { answers: {}, score: 0, submitted: false },
+                    refleksi: {}, submitted: false, submitTime: null, teacherScore: null, teacherFeedback: null, published: false
+                };
+            } else {
+                // Ensure classVal is synced
+                studentData[name].classVal = classVal;
+            }
+            saveStudentDataStorage();
+
+            switchView('view-student-dashboard');
+            renderStudentTab();
+            showToast(`Selamat datang, ${name}!`);
+        }
+
+        function handleTeacherLogin(e) {
+            e.preventDefault();
+            const code = document.getElementById('teacher-code-input').value.trim();
+            const errEl = document.getElementById('teacher-error-msg');
+            
+            if (code === teacherAccessCode) {
+                errEl.classList.add('hidden');
+                currentUser = { name: 'Guru Pengampu', role: 'teacher' };
+                document.getElementById('nav-greeting').innerText = 'Dashboard Guru';
+                switchView('view-teacher-dashboard');
+                renderTeacherTab();
+                showToast('Login guru berhasil!');
+            } else {
+                errEl.classList.remove('hidden');
+                showToast('Kode akses guru salah!', 'error');
+            }
+        }
+
+        // --- STUDENT E-LKPD CONTROLLER ---
+        function switchStudentTab(tabId) {
+            currentStudentTab = tabId;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-purple-100 transition";
+            });
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn whitespace-nowrap px-4 py-2.5 rounded-xl text-sm font-extrabold bg-purple-600 text-white shadow-md transition";
+            }
+            renderStudentTab();
+            updateStudentProgress();
+        }
+
+        function updateStudentProgress() {
+            if (!currentUser || currentUser.role !== 'student') return;
+            studentData = getStudentDataStorage();
+            const data = studentData[currentUser.name];
+            if (!data) return;
+
+            let completedCount = 0;
+            let totalSteps = 8;
+            
+            if (Object.keys(data.stage1 || {}).length > 0) completedCount++;
+            if ((data.stage2 || {}).rumusan) completedCount++;
+            if (Object.keys((data.stage3 || {}).table1 || {}).length > 0) completedCount++;
+            if (Object.keys(data.stage4 || {}).length > 0) completedCount++;
+            if ((data.stage5 || {}).verified) completedCount++;
+            if (Object.keys(data.stage6 || {}).length > 0) completedCount++;
+            if ((data.quiz || {}).submitted) completedCount++;
+            if (Object.keys(data.refleksi || {}).length > 0) completedCount++;
+
+            const percent = Math.round((completedCount / totalSteps) * 100);
+            const barFill = document.getElementById('progress-bar-fill');
+            const percentText = document.getElementById('progress-percent');
+            if (barFill) barFill.style.width = `${percent}%`;
+            if (percentText) percentText.innerText = `${percent}%`;
+        }
+
+        function renderStudentTab() {
+            studentData = getStudentDataStorage();
+            if (!currentUser || !studentData[currentUser.name]) return;
+            document.getElementById('student-welcome-title').innerText = `Halo, ${currentUser.name}!`;
+            const container = document.getElementById('student-tab-content');
+            const data = studentData[currentUser.name];
+
+            switch(currentStudentTab) {
+                case 'materi':
+                    container.innerHTML = `
+                        <div class="space-y-8">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow">Ringkasan Materi & Penjelasan Mendalam</span>
+                                <h3 class="text-3xl font-black text-slate-900 mt-3">Materi Pembelajaran: Aturan Angka Penting</h3>
+                                <p class="text-sm text-slate-700 mt-1 font-medium">Pelajari konsep dasar penulisan hasil pengukuran dan seluruh aturan penting dalam fisika secara komprehensif dan rinci.</p>
+                            </div>
+
+                            <!-- 1. Pengertian Angka Penting dengan Ilustrasi SVG Penggaris & Pensil yang Sempurna -->
+                            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 sm:p-8 rounded-3xl border-2 border-purple-200 shadow-sm space-y-6">
+                                <h4 class="font-black text-purple-900 text-xl flex items-center">
+                                    <i class="fa-solid fa-ruler-combined mr-3 text-purple-600 text-2xl"></i> 
+                                    1. Pengertian Angka Penting dalam Pengukuran
+                                </h4>
+                                <p class="text-base text-slate-700 leading-relaxed font-medium">
+                                    Dalam kegiatan eksperimen fisika, hasil pengukuran tidak pernah mutlak sempurna dan sangat bergantung pada tingkat ketelitian instrumen alat ukur yang digunakan. <strong>Angka penting</strong> didefinisikan sebagai semua angka yang diperoleh dari hasil pengukuran, yang terdiri atas <strong>angka pasti</strong> (yang terbaca secara pasti dan tegas pada skala alat ukur) dan satu digit terakhir yang merupakan <strong>angka taksiran</strong> (perkiraan pembacaan di antara skala terkecil).
+                                </p>
+                                
+                                <div class="bg-white p-6 rounded-3xl shadow-md border-2 border-purple-200 flex flex-col items-center space-y-4">
+                                    <div class="text-sm font-black text-purple-900 bg-purple-100 px-4 py-2 rounded-full shadow-inner">Ilustrasi Visual: Pengukuran Panjang Benda (Pensil) Tepat 12,4 cm dengan Skala Penggaris</div>
+                                    <svg viewBox="0 0 650 180" class="w-full max-w-2xl h-auto drop-shadow-md">
+                                        <!-- Ruler Background -->
+                                        <rect x="20" y="20" width="600" height="70" fill="#FACC15" rx="8" stroke="#ca8a04" stroke-width="2.5"/>
+                                        <!-- 10 cm group -->
+                                        <line x1="60" y1="20" x2="60" y2="50" stroke="#713f12" stroke-width="2.5"/><text x="50" y="70" font-size="13" font-weight="extrabold" fill="#713f12">10</text>
+                                        <line x1="65" y1="20" x2="65" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="70" y1="20" x2="70" y2="40" stroke="#713f12" stroke-width="2"/><line x1="75" y1="20" x2="75" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="80" y1="20" x2="80" y2="40" stroke="#713f12" stroke-width="2"/><line x1="85" y1="20" x2="85" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="90" y1="20" x2="90" y2="45" stroke="#713f12" stroke-width="2.5"/><line x1="95" y1="20" x2="95" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="100" y1="20" x2="100" y2="40" stroke="#713f12" stroke-width="2"/><line x1="105" y1="20" x2="105" y2="35" stroke="#713f12" stroke-width="1.5"/>
+                                        
+                                        <!-- 11 cm group -->
+                                        <line x1="110" y1="20" x2="110" y2="50" stroke="#713f12" stroke-width="2.5"/><text x="100" y="70" font-size="13" font-weight="extrabold" fill="#713f12">11</text>
+                                        <line x1="115" y1="20" x2="115" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="120" y1="20" x2="120" y2="40" stroke="#713f12" stroke-width="2"/><line x1="125" y1="20" x2="125" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="130" y1="20" x2="130" y2="40" stroke="#713f12" stroke-width="2"/><line x1="135" y1="20" x2="135" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="140" y1="20" x2="140" y2="45" stroke="#713f12" stroke-width="2.5"/><line x1="145" y1="20" x2="145" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="150" y1="20" x2="150" y2="40" stroke="#713f12" stroke-width="2"/><line x1="155" y1="20" x2="155" y2="35" stroke="#713f12" stroke-width="1.5"/>
+
+                                        <!-- 12 cm group -->
+                                        <line x1="160" y1="20" x2="160" y2="50" stroke="#713f12" stroke-width="2.5"/><text x="150" y="70" font-size="13" font-weight="extrabold" fill="#713f12">12</text>
+                                        <line x1="165" y1="20" x2="165" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="170" y1="20" x2="170" y2="40" stroke="#713f12" stroke-width="2"/><line x1="175" y1="20" x2="175" y2="35" stroke="#713f12" stroke-width="1.5"/>
+                                        <!-- 12.4 cm mark -->
+                                        <line x1="180" y1="20" x2="180" y2="45" stroke="#ef4444" stroke-width="3.5"/><text x="171" y="85" font-size="11" font-weight="black" fill="#ef4444">12,4 cm</text>
+                                        <line x1="185" y1="20" x2="185" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="190" y1="20" x2="190" y2="45" stroke="#713f12" stroke-width="2.5"/><line x1="195" y1="20" x2="195" y2="35" stroke="#713f12" stroke-width="1.5"/><line x1="200" y1="20" x2="200" y2="40" stroke="#713f12" stroke-width="2"/><line x1="205" y1="20" x2="205" y2="35" stroke="#713f12" stroke-width="1.5"/>
+
+                                        <!-- 13 cm group -->
+                                        <line x1="210" y1="20" x2="210" y2="50" stroke="#713f12" stroke-width="2.5"/><text x="200" y="70" font-size="13" font-weight="extrabold" fill="#713f12">13</text>
+                                        <line x1="260" y1="20" x2="260" y2="50" stroke="#713f12" stroke-width="2.5"/><text x="250" y="70" font-size="13" font-weight="extrabold" fill="#713f12">14</text>
+                                        <line x1="310" y1="20" x2="310" y2="50" stroke="#713f12" stroke-width="2.5"/><text x="300" y="70" font-size="13" font-weight="extrabold" fill="#713f12">15</text>
+
+                                        <!-- Object (Pencil) aligned starting from 60 (10 cm) to 180 (12.4 cm) -->
+                                        <rect x="60" y="105" width="120" height="22" rx="4" fill="#3b82f6"/>
+                                        <polygon points="180,105 205,116 180,127" fill="#f43f5e"/>
+                                        <polygon points="205,116 213,116 213,117 205,117" fill="#1e293b"/>
+
+                                        <!-- Alignment Dashed Indicator -->
+                                        <line x1="180" y1="10" x2="180" y2="155" stroke="#ef4444" stroke-width="3" stroke-dasharray="4,4"/>
+                                        <rect x="135" y="145" width="180" height="26" rx="6" fill="#1e293b"/>
+                                        <text x="143" y="162" font-size="11" font-weight="extrabold" fill="#34d399">Ujung Pensil Tepat di 12,4 cm</text>
+                                    </svg>
+                                </div>
+                                <div class="bg-white p-5 rounded-2xl border-2 border-purple-200 text-sm text-purple-900 font-semibold leading-relaxed shadow-sm">
+                                    💡 <strong>Penjelasan Kontekstual:</strong> Angka 12 adalah angka pasti (terbaca secara tegas pada skala sentimeter penggaris), sedangkan angka 4 adalah angka taksiran (0,4 cm di antara garis 12 dan 13 cm). Sehingga bilangan 12,4 cm memiliki tepat <strong>3 angka penting</strong>.
+                                </div>
+                            </div>
+
+                            <!-- 2. Rincian Lengkap Aturan Angka Penting -->
+                            <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-6 sm:p-8 rounded-3xl border-2 border-sky-200 shadow-sm space-y-6">
+                                <h4 class="font-black text-sky-900 text-xl flex items-center">
+                                    <i class="fa-solid fa-list-check mr-3 text-sky-600 text-2xl"></i> 
+                                    2. Rincian Lengkap Aturan Angka Penting
+                                </h4>
+                                <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                    Dalam membaca, menuliskan, dan melaporkan bilangan hasil pengukuran ilmiah, terdapat lima aturan baku yang wajib dipatuhi untuk menentukan jumlah angka penting secara tepat:
+                                </p>
+                                
+                                <div class="space-y-4">
+                                    <div class="bg-white p-5 rounded-2xl border-2 border-sky-200 shadow-sm space-y-2">
+                                        <span class="font-black text-sm text-sky-900 bg-sky-100 px-3 py-1 rounded-full inline-block shadow-inner">Aturan 1: Semua Angka Bukan Nol adalah Angka Penting</span>
+                                        <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                            Setiap digit angka yang tidak bernilai nol (yaitu angka 1, 2, 3, 4, 5, 6, 7, 8, dan 9) mutlak merupakan angka penting tanpa terkecuali. 
+                                            <br><em>Contoh:</em> Bilangan <strong>245</strong> memiliki 3 angka penting, dan bilangan <strong>37,2</strong> juga memiliki 3 angka penting.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-white p-5 rounded-2xl border-2 border-sky-200 shadow-sm space-y-2">
+                                        <span class="font-black text-sm text-sky-900 bg-sky-100 px-3 py-1 rounded-full inline-block shadow-inner">Aturan 2: Angka Nol di Antara Angka Bukan Nol adalah Angka Penting</span>
+                                        <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                            Semua angka nol yang terletak di antara dua buah angka bukan nol termasuk ke dalam kelompok angka penting.
+                                            <br><em>Contoh:</em> Bilangan <strong>205</strong> memiliki 3 angka penting (karena angka nol diapit oleh angka 2 dan 5). Bilangan <strong>3,07</strong> memiliki 3 angka penting.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-white p-5 rounded-2xl border-2 border-sky-200 shadow-sm space-y-2">
+                                        <span class="font-black text-sm text-sky-900 bg-sky-100 px-3 py-1 rounded-full inline-block shadow-inner">Aturan 3: Angka Nol di Depan Angka Bukan Nol Bukan Angka Penting</span>
+                                        <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                            Semua angka nol yang terletak di sebelah kiri (depan) angka bukan nol pertama berfungsi semata-mata sebagai penunjuk letak tanda desimal dan bukan merupakan angka penting.
+                                            <br><em>Contoh:</em> Bilangan <strong>0,0045</strong> hanya memiliki 2 angka penting (yaitu angka 4 dan 5). Bilangan <strong>0,032</strong> memiliki 2 angka penting.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-white p-5 rounded-2xl border-2 border-sky-200 shadow-sm space-y-2">
+                                        <span class="font-black text-sm text-sky-900 bg-sky-100 px-3 py-1 rounded-full inline-block shadow-inner">Aturan 4: Angka Nol di Belakang Tanda Desimal adalah Angka Penting</span>
+                                        <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                            Angka nol yang terletak di belakang angka bukan nol dan di belakang tanda desimal merupakan angka penting karena menunjukkan tingkat ketelitian alat ukur.
+                                            <br><em>Contoh:</em> Bilangan <strong>2,50</strong> memiliki 3 angka penting. Bilangan <strong>4,200</strong> memiliki 4 angka penting. Bilangan <strong>0,00620</strong> memiliki 3 angka penting.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-white p-5 rounded-2xl border-2 border-sky-200 shadow-sm space-y-2">
+                                        <span class="font-black text-sm text-sky-900 bg-sky-100 px-3 py-1 rounded-full inline-block shadow-inner">Aturan 5: Angka Nol pada Bilangan Bulat Tanpa Desimal Bersifat Ambigu</span>
+                                        <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                            Angka-angka nol pada bilangan bulat tanpa tanda desimal (misalnya 1500 atau 50000) dapat menimbulkan keraguan mengenai jumlah angka pentingnya. Untuk mengatasi hal tersebut, digunakan notasi ilmiah (bentuk baku) seperti $1,5 \times 10^3$ (2 angka penting) atau $1,50 \times 10^3$ (3 angka penting).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3 & 4. Operasi Hitung Lengkap dengan Ilustrasi Sesuai -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-3xl border-2 border-emerald-200 shadow-sm space-y-4">
+                                    <h4 class="font-black text-emerald-900 text-lg flex items-center">
+                                        <i class="fa-solid fa-plus-minus mr-2 text-emerald-600 text-xl"></i> 3. Penjumlahan & Pengurangan
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                        Dalam operasi penjumlahan atau pengurangan angka penting, hasil akhir hanya boleh memiliki <strong>jumlah tempat desimal yang sama dengan jumlah tempat desimal paling sedikit</strong> dari bilangan-bilangan yang dijumlahkan atau dikurangkan.
+                                    </p>
+                                    <div class="bg-white p-4 rounded-2xl border-2 border-emerald-200 text-xs sm:text-sm font-mono space-y-1 shadow-inner">
+                                        <p>125,5 g &nbsp;&nbsp;&nbsp;(memiliki 1 tempat desimal)</p>
+                                        <p>+ 50,2 g &nbsp;&nbsp;&nbsp;(memiliki 1 tempat desimal)</p>
+                                        <hr class="border-emerald-200 my-1">
+                                        <p class="font-black text-emerald-700">= 175,7 g &nbsp;&nbsp;(ditulis dengan 1 tempat desimal)</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-3xl border-2 border-amber-200 shadow-sm space-y-4">
+                                    <h4 class="font-black text-amber-900 text-lg flex items-center">
+                                        <i class="fa-solid fa-xmark mr-2 text-amber-600 text-xl"></i> 4. Perkalian & Pembagian
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                                        Dalam operasi perkalian atau pembagian angka penting, hasil akhir harus dibulatkan sedemikian rupa sehingga <strong>jumlah angka pentingnya sama dengan jumlah angka penting paling sedikit</strong> dari faktor-faktor yang dikalikan atau dibagi.
+                                    </p>
+                                    <div class="bg-white p-4 rounded-2xl border-2 border-amber-200 text-xs sm:text-sm font-mono space-y-1 shadow-inner">
+                                        <p>12,46 cm &nbsp;(memiliki 4 angka penting)</p>
+                                        <p>× 3,2 cm &nbsp;&nbsp;&nbsp;(memiliki 2 angka penting)</p>
+                                        <hr class="border-amber-200 my-1">
+                                        <p class="font-black text-amber-700">= 40 cm² &nbsp;&nbsp;&nbsp;(dibulatkan menjadi 2 angka penting)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 5. Pembulatan -->
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 sm:p-8 rounded-3xl border-2 border-purple-200 shadow-sm space-y-4">
+                                <h4 class="font-black text-purple-900 text-lg flex items-center">
+                                    <i class="fa-solid fa-arrows-split-up-and-left mr-2 text-purple-600 text-xl"></i> 5. Aturan Pembulatan Angka Penting
+                                </h4>
+                                <ul class="list-disc list-inside text-sm text-slate-700 space-y-2 pl-2 font-medium">
+                                    <li>Jika angka yang harus dihilangkan bernilai <strong>lebih dari 5</strong>, maka angka di depannya dibulatkan ke atas (ditambah satu). <em>Contoh:</em> 12,678 dibulatkan menjadi 4 angka penting menjadi <strong>12,68</strong>.</li>
+                                    <li>Jika angka yang harus dihilangkan bernilai <strong>kurang dari 5</strong>, maka angka di depannya tetap. <em>Contoh:</em> 8,242 dibulatkan menjadi 3 angka penting menjadi <strong>8,24</strong>.</li>
+                                    <li>Jika angka yang harus dihilangkan bernilai <strong>tepat sama dengan 5</strong>, bulatkan ke atas jika angka di depannya ganjil, dan tetap jika genap.</li>
+                                </ul>
+                            </div>
+
+                            <div class="flex justify-end pt-4">
+                                <button onclick="switchStudentTab('stage1')" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-4 px-8 rounded-2xl shadow-xl transition text-sm flex items-center space-x-3 transform hover:scale-105">
+                                    <span>Lanjut ke Tahap 1: Stimulation</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage1':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 1</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Stimulation (Pemberian Rangsangan)</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Amati dua stimulus pengukuran yang berbeda: massa benda pada neraca digital (125 g) dan volume cairan pada gelas ukur (125,0 mL).</p>
+                            </div>
+
+                            <div class="space-y-6">
+                                <!-- Visual SVG Stimulus: 1 Neraca Digital (125 g) & 1 Gelas Ukur (125,0 mL) -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                                    
+                                    <!-- Stimulus 1: Neraca Digital Massa 125 g -->
+                                    <div class="bg-white p-5 rounded-3xl border-2 border-purple-200 flex flex-col items-center space-y-3 shadow-md">
+                                        <span class="text-xs font-black text-purple-900 bg-purple-100 px-3 py-1 rounded-full">Stimulus 1: Neraca Digital (Massa = 125 g)</span>
+                                        <svg viewBox="0 0 280 140" class="w-full h-auto drop-shadow">
+                                            <!-- Scale Body -->
+                                            <rect x="30" y="70" width="220" height="55" fill="#334155" rx="8"/>
+                                            <rect x="50" y="20" width="180" height="40" fill="#94a3b8" rx="4"/>
+                                            <!-- Screen -->
+                                            <rect x="70" y="85" width="140" height="30" fill="#0f172a" rx="4" stroke="#475569" stroke-width="2"/>
+                                            <text x="102" y="106" font-size="18" font-family="monospace" font-weight="bold" fill="#34d399">125 g</text>
+                                        </svg>
+                                    </div>
+
+                                    <!-- Stimulus 2: Gelas Ukur Volume 125,0 mL -->
+                                    <div class="bg-white p-5 rounded-3xl border-2 border-purple-200 flex flex-col items-center space-y-3 shadow-md">
+                                        <span class="text-xs font-black text-purple-900 bg-purple-100 px-3 py-1 rounded-full">Stimulus 2: Gelas Ukur (Volume = 125,0 mL)</span>
+                                        <svg viewBox="0 0 280 140" class="w-full h-auto drop-shadow">
+                                            <!-- Cylinder Base & Body -->
+                                            <rect x="110" y="15" width="60" height="105" fill="#e2e8f0" opacity="0.6" stroke="#94a3b8" stroke-width="2" rx="4"/>
+                                            <ellipse cx="140" cy="120" rx="35" ry="8" fill="#cbd5e1"/>
+                                            <!-- Liquid inside up to 125.0 mL -->
+                                            <path d="M112 50 L168 50 L168 118 C168 120 155 122 140 122 C125 122 112 120 112 118 Z" fill="#60A5FA" opacity="0.85"/>
+                                            <!-- Meniscus curve -->
+                                            <path d="M112 50 Q140 58 168 50" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+                                            <!-- Scale lines -->
+                                            <line x1="105" y1="30" x2="112" y2="30" stroke="#475569" stroke-width="1.5"/><text x="75" y="34" font-size="10" font-weight="bold" fill="#475569">150 mL</text>
+                                            <line x1="105" y1="50" x2="112" y2="50" stroke="#ef4444" stroke-width="2.5"/><text x="70" y="54" font-size="10" font-weight="extrabold" fill="#ef4444">125,0 mL</text>
+                                            <line x1="105" y1="75" x2="112" y2="75" stroke="#475569" stroke-width="1.5"/><text x="75" y="79" font-size="10" font-weight="bold" fill="#475569">100 mL</text>
+                                        </svg>
+                                    </div>
+
+                                </div>
+
+                                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-3xl border-2 border-purple-200 space-y-2 shadow-sm">
+                                    <h4 class="font-black text-purple-900 text-sm flex items-center"><i class="fa-solid fa-circle-question text-blue-500 mr-2 text-lg"></i> Cerita Kontekstual</h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed font-medium italic">
+                                        “Dua peserta didik melakukan pengukuran berbeda. Peserta didik pertama mengukur massa benda dengan neraca digital dan mencatat hasilnya 125 g (Stimulus 1). Peserta didik kedua mengukur volume cairan dengan gelas ukur dan mencatat hasilnya 125,0 mL (Stimulus 2). Mengapa penulisan angka 125 g dan 125,0 mL memiliki jumlah digit desimal dan angka penting yang berbeda? Bagaimana aturan angka penting memandang kedua hasil pengukuran ini?”
+                                    </p>
+                                </div>
+
+                                <div class="space-y-4 pt-2">
+                                    <div>
+                                        <label class="block text-xs font-extrabold text-purple-900 mb-1">1. Apa perbedaan penulisan angka hasil pengukuran antara Neraca Digital (125 g) dan Gelas Ukur (125,0 mL)?</label>
+                                        <textarea id="s1-q1" rows="3" class="w-full p-4 rounded-2xl border-2 border-purple-200 text-sm font-medium focus:ring-2 focus:ring-purple-500 bg-white" placeholder="Tuliskan pengamatanmu...">${data.stage1.q1 || ''}</textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-extrabold text-purple-900 mb-1">2. Mengapa alat ukur yang berbeda (seperti neraca dan gelas ukur) menghasilkan penulisan desimal yang berbeda dalam laporan ilmiah?</label>
+                                        <textarea id="s1-q2" rows="3" class="w-full p-4 rounded-2xl border-2 border-purple-200 text-sm font-medium focus:ring-2 focus:ring-purple-500 bg-white" placeholder="Tuliskan alasan ilmiah...">${data.stage1.q2 || ''}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('materi')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="saveStage1()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Simpan & Lanjut ke Tahap 2 <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage2':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 2</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Problem Statement (Identifikasi Masalah)</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Berdasarkan stimulus di atas, rumuskan pertanyaan atau masalah yang ingin diselidiki.</p>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 sm:p-8 rounded-3xl border-2 border-purple-200 space-y-4 shadow-sm">
+                                <div class="bg-white p-5 rounded-2xl border-2 border-purple-200 text-xs text-purple-900 space-y-1 shadow-inner font-medium">
+                                    <span class="font-extrabold text-sm text-purple-900 block mb-1">Pertanyaan Penuntun:</span>
+                                    <ul class="list-disc list-inside space-y-1 pl-2">
+                                        <li>Bagaimana menentukan aturan angka penting dari suatu bilangan hasil pengukuran?</li>
+                                        <li>Apakah semua angka nol termasuk angka penting?</li>
+                                        <li>Bagaimana aturan angka penting diterapkan dalam operasi hitung?</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-extrabold text-purple-900 mb-2">Tuliskan minimal 2 rumusan masalah / pertanyaan penyelidikan:</label>
+                                    <textarea id="s2-rumusan" rows="5" class="w-full p-4 rounded-2xl border-2 border-purple-200 text-sm font-medium focus:ring-2 focus:ring-purple-500 bg-white" placeholder="1. Bagaimana cara membedakan angka pasti dan angka taksiran?&#10;2. Bagaimana aturan angka penting pada perkalian desimal?">${data.stage2.rumusan || ''}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage1')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="saveStage2()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Simpan Rumusan & Lanjut <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage3':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 3</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Data Collection (Pengumpulan Data)</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Lakukan pengamatan pada tabel pengukuran dan selesaikan latihan operasi hitung berikut.</p>
+                            </div>
+
+                            <!-- Kegiatan 1: Tabel Angka Penting dengan Gambar Alat Ukur -->
+                            <div class="space-y-4">
+                                <h4 class="font-extrabold text-purple-900 text-sm">Kegiatan 1 — Menentukan Jumlah Angka Penting Berdasarkan Alat Ukur</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left border-collapse text-xs sm:text-sm bg-white rounded-2xl overflow-hidden shadow-md border-2 border-purple-200">
+                                        <thead>
+                                            <tr class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-extrabold">
+                                                <th class="p-3.5">No</th>
+                                                <th class="p-3.5">Hasil Pengukuran</th>
+                                                <th class="p-3.5">Jumlah AP</th>
+                                                <th class="p-3.5">Alasan / Aturan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-purple-100 font-medium">
+                                            <tr>
+                                                <td class="p-3.5">1</td>
+                                                <td class="p-3.5 font-mono font-bold text-purple-900">12,4 cm <span class="text-[10px] text-slate-500 block font-normal">(Penggaris)</span></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-ap1" value="${data.stage3.table1.ap1 || ''}" class="w-20 p-2.5 border-2 border-purple-200 rounded-xl text-center font-bold" placeholder="Jumlah"></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-al1" value="${data.stage3.table1.al1 || ''}" class="w-full p-2.5 border-2 border-purple-200 rounded-xl" placeholder="Alasan"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-3.5">2</td>
+                                                <td class="p-3.5 font-mono font-bold text-purple-900">125,5 g <span class="text-[10px] text-slate-500 block font-normal">(Neraca)</span></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-ap2" value="${data.stage3.table1.ap2 || ''}" class="w-20 p-2.5 border-2 border-purple-200 rounded-xl text-center font-bold" placeholder="Jumlah"></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-al2" value="${data.stage3.table1.al2 || ''}" class="w-full p-2.5 border-2 border-purple-200 rounded-xl" placeholder="Alasan"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-3.5">3</td>
+                                                <td class="p-3.5 font-mono font-bold text-purple-900">25,0 mL <span class="text-[10px] text-slate-500 block font-normal">(Gelas Ukur)</span></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-ap3" value="${data.stage3.table1.ap3 || ''}" class="w-20 p-2.5 border-2 border-purple-200 rounded-xl text-center font-bold" placeholder="Jumlah"></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-al3" value="${data.stage3.table1.al3 || ''}" class="w-full p-2.5 border-2 border-purple-200 rounded-xl" placeholder="Alasan"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-3.5">4</td>
+                                                <td class="p-3.5 font-mono font-bold text-purple-900">0,0045 m <span class="text-[10px] text-slate-500 block font-normal">(Mikrometer)</span></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-ap4" value="${data.stage3.table1.ap4 || ''}" class="w-20 p-2.5 border-2 border-purple-200 rounded-xl text-center font-bold" placeholder="Jumlah"></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-al4" value="${data.stage3.table1.al4 || ''}" class="w-full p-2.5 border-2 border-purple-200 rounded-xl" placeholder="Alasan"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-3.5">5</td>
+                                                <td class="p-3.5 font-mono font-bold text-purple-900">3,07 cm <span class="text-[10px] text-slate-500 block font-normal">(Jangka Sorong)</span></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-ap5" value="${data.stage3.table1.ap5 || ''}" class="w-20 p-2.5 border-2 border-purple-200 rounded-xl text-center font-bold" placeholder="Jumlah"></td>
+                                                <td class="p-3.5"><input type="text" id="s3-t1-al5" value="${data.stage3.table1.al5 || ''}" class="w-full p-2.5 border-2 border-purple-200 rounded-xl" placeholder="Alasan"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Kegiatan 3: Operasi Hitung -->
+                            <div class="space-y-4 pt-4 border-t-2 border-purple-200">
+                                <h4 class="font-extrabold text-purple-900 text-sm">Kegiatan 3 — Menyelidiki Operasi Hitung & Pembulatan</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-5 rounded-2xl border-2 border-purple-200 space-y-2 shadow-sm">
+                                        <span class="font-black text-xs text-purple-900 block">Soal A (Penjumlahan)</span>
+                                        <p class="text-xs text-slate-700 font-medium">Massa benda A = 125,5 g dan B = 50,2 g. Hitung massa total sesuai aturan angka penting.</p>
+                                        <textarea id="s3-soalA" rows="3" class="w-full p-3 border-2 border-purple-200 rounded-xl text-xs font-medium bg-white" placeholder="Langkah & hasil...">${data.stage3.soalA || ''}</textarea>
+                                    </div>
+                                    <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-5 rounded-2xl border-2 border-sky-200 space-y-2 shadow-sm">
+                                        <span class="font-black text-xs text-sky-900 block">Soal B (Perkalian)</span>
+                                        <p class="text-xs text-slate-700 font-medium">Meja P = 12,46 cm, L = 3,2 cm. Hitung luas meja sesuai aturan angka penting.</p>
+                                        <textarea id="s3-soalB" rows="3" class="w-full p-3 border-2 border-sky-200 rounded-xl text-xs font-medium bg-white" placeholder="Langkah & hasil...">${data.stage3.soalB || ''}</textarea>
+                                    </div>
+                                    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-5 rounded-2xl border-2 border-emerald-200 space-y-2 shadow-sm">
+                                        <span class="font-black text-xs text-emerald-900 block">Soal C (Pembulatan)</span>
+                                        <p class="text-xs text-slate-700 font-medium">Bulatkan hasil 12,678 cm menjadi tepat 4 angka penting.</p>
+                                        <textarea id="s3-soalC" rows="3" class="w-full p-3 border-2 border-emerald-200 rounded-xl text-xs font-medium bg-white" placeholder="Hasil pembulatan...">${data.stage3.soalC || ''}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage2')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="saveStage3()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Simpan Data & Lanjut <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage4':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 4</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Data Processing (Pengolahan Data)</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Jawab pertanyaan terbimbing untuk menyimpulkan pola aturan angka penting.</p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 p-5 rounded-2xl border-2 border-purple-200 space-y-2 shadow-sm">
+                                    <label class="block text-xs font-black text-purple-900">1. Apa persamaan dari bilangan 245 dan 37,2 dalam menentukan angka penting?</label>
+                                    <textarea id="s4-p1" rows="2" class="w-full p-3.5 border-2 border-purple-200 rounded-xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.stage4.proc1 || ''}</textarea>
+                                </div>
+                                <div class="bg-gradient-to-r from-sky-50 to-blue-50 p-5 rounded-2xl border-2 border-sky-200 space-y-2 shadow-sm">
+                                    <label class="block text-xs font-black text-sky-900">2. Apa perbedaan bilangan 205 dan 0,0045 dalam status angka nol berdasarkan aturan angka penting?</label>
+                                    <textarea id="s4-p2" rows="2" class="w-full p-3.5 border-2 border-sky-200 rounded-xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.stage4.proc2 || ''}</textarea>
+                                </div>
+                                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-5 rounded-2xl border-2 border-emerald-200 space-y-2 shadow-sm">
+                                    <label class="block text-xs font-black text-emerald-900">3. Mengapa nol di belakang tanda desimal seperti 2,50 termasuk dalam aturan angka penting?</label>
+                                    <textarea id="s4-p3" rows="2" class="w-full p-3.5 border-2 border-emerald-200 rounded-xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.stage4.proc3 || ''}</textarea>
+                                </div>
+                                <div class="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-2xl border-2 border-amber-200 space-y-2 shadow-sm">
+                                    <label class="block text-xs font-black text-amber-900">4. Apa perbedaan mendasar aturan angka penting pada penjumlahan dengan perkalian?</label>
+                                    <textarea id="s4-p4" rows="2" class="w-full p-3.5 border-2 border-amber-200 rounded-xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.stage4.proc4 || ''}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage3')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="saveStage4()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Simpan Pengolahan & Lanjut <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage5':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 5</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Verification (Pembuktian)</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Bandingkan hasil temuannmu dengan kunci materi standar ilmiah aturan angka penting.</p>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 sm:p-8 rounded-3xl border-2 border-emerald-200 space-y-4 shadow-sm">
+                                <h4 class="font-black text-emerald-900 text-base flex items-center"><i class="fa-solid fa-shield-check mr-2 text-emerald-600 text-xl"></i> Panel Pemeriksaan Temuan Aturan Angka Penting</h4>
+                                <ul class="text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside font-medium">
+                                    <li><strong>Aturan 1:</strong> Semua angka bukan nol adalah angka penting.</li>
+                                    <li><strong>Aturan 2 & 3:</strong> Nol di antara angka bukan nol adalah penting; nol di depan tidak penting; nol di belakang desimal adalah penting.</li>
+                                    <li><strong>Operasi Penjumlahan/Pengurangan:</strong> Mengikuti jumlah tempat desimal paling sedikit sesuai aturan angka penting.</li>
+                                    <li><strong>Operasi Perkalian/Pembagian:</strong> Mengikuti jumlah angka penting paling sedikit sesuai aturan angka penting.</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 sm:p-8 rounded-3xl border-2 border-purple-200 space-y-4 shadow-sm">
+                                <label class="block text-xs font-black text-purple-900">Apakah hasil pengolahan data Anda sudah sesuai? Berikan catatan perbaikan jika ada:</label>
+                                <textarea id="s5-notes" rows="3" class="w-full p-4 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white" placeholder="Catatan perbaikan atau konfirmasi...">${data.stage5.notes || ''}</textarea>
+                                <div class="flex items-center space-x-3 pt-2">
+                                    <input type="checkbox" id="s5-check" ${data.stage5.verified ? 'checked' : ''} class="w-6 h-6 text-purple-600 rounded-xl border-2 border-purple-300">
+                                    <label for="s5-check" class="text-sm font-extrabold text-slate-800">Saya telah memverifikasi temuan aturan angka penting saya dengan benar.</label>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage4')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="saveStage5()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Simpan Verifikasi & Lanjut <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage6':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 6</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Generalization (Menarik Kesimpulan)</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Lengkapi kalimat kesimpulan berikut berdasarkan penyelidikan aturan angka penting yang telah dilakukan.</p>
+                            </div>
+
+                            <div class="space-y-4 bg-gradient-to-br from-purple-50 to-indigo-50 p-6 sm:p-8 rounded-3xl border-2 border-purple-200 shadow-sm">
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">1. Aturan angka penting adalah ...</label>
+                                    <input type="text" id="s6-g1" value="${data.stage6.gen1 || ''}" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">2. Semua angka bukan nol dan nol di antara angka bukan nol ...</label>
+                                    <input type="text" id="s6-g2" value="${data.stage6.gen2 || ''}" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">3. Angka nol di depan angka bukan nol (seperti 0,0045) bernilai ...</label>
+                                    <input type="text" id="s6-g3" value="${data.stage6.gen3 || ''}" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">4. Pada penjumlahan dan pengurangan, aturan angka penting mengharuskan hasil mengikuti ...</label>
+                                    <input type="text" id="s6-g4" value="${data.stage6.gen4 || ''}" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">5. Pada perkalian dan pembagian, aturan angka penting mengharuskan hasil mengikuti ...</label>
+                                    <input type="text" id="s6-g5" value="${data.stage6.gen5 || ''}" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">6. Mengapa aturan angka penting sangat diperlukan dalam pengukuran sains?</label>
+                                    <input type="text" id="s6-g6" value="${data.stage6.gen6 || ''}" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage5')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="saveStage6()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Simpan Kesimpulan & Lanjut <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'stage7':
+                    const questions = [
+                        { q: "Berapa jumlah angka penting pada bilangan 3050 berdasarkan aturan angka penting?", opts: ["2", "3", "4", "Ambigu/Tergantung Notasi"], ans: 3 },
+                        { q: "Berapa jumlah angka penting pada bilangan 0,00450 sesuai aturan angka penting?", opts: ["2", "3", "4", "5"], ans: 1 },
+                        { q: "Hasil penjumlahan 12,4 cm + 3,12 cm berdasarkan aturan angka penting adalah...", opts: ["15,52 cm", "15,5 cm", "16 cm", "15,520 cm"], ans: 1 },
+                        { q: "Hasil perkalian 2,5 cm × 1,4 cm sesuai aturan angka penting adalah...", opts: ["3,5 cm²", "3,50 cm²", "4 cm²", "3,52 cm²"], ans: 0 },
+                        { q: "Berapa jumlah angka penting pada bilangan 50,02?", opts: ["2", "3", "4", "5"], ans: 3 },
+                        { q: "Angka nol di depan angka bukan nol pada desimal seperti 0,032 dalam aturan angka penting...", opts: ["Termasuk angka penting", "Bukan angka penting", "Angka taksiran", "Angka mutlak"], ans: 1 },
+                        { q: "Bulatkan bilangan 12,678 menjadi 3 angka penting:", opts: ["12,6", "12,7", "12,68", "13,0"], ans: 1 },
+                        { q: "Manakah pernyataan yang benar mengenai aturan angka penting pada angka pasti dan taksiran?", opts: ["Semua angka adalah taksiran", "Hanya digit terakhir yang merupakan angka taksiran", "Tidak ada angka pasti", "Taksiran di awal bilangan"], ans: 1 },
+                        { q: "Hasil pembagian 7,5 m dibagi 2,5 s sesuai aturan angka penting adalah...", opts: ["3,0 m/s", "3 m/s", "3,00 m/s", "3,05 m/s"], ans: 1 },
+                        { q: "Mengapa pengukuran ilmiah memerlukan aturan angka penting?", opts: ["Agar hasil terlihat rumit", "Untuk menunjukkan tingkat ketelitian alat ukur secara jujur", "Agar perhitungan kalkulator lebih cepat", "Tidak ada kegunaan khusus"], ans: 1 }
+                    ];
+
+                    let quizHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 7</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Kuis Evaluasi Akhir</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Jawab 10 soal pilihan ganda berikut untuk menguji pemahaman Anda mengenai aturan angka penting.</p>
+                            </div>
+                            <div class="space-y-6">
+                    `;
+
+                    questions.forEach((item, idx) => {
+                        const userAns = data.quiz.answers[idx] !== undefined ? data.quiz.answers[idx] : '';
+                        quizHTML += `
+                            <div class="bg-gradient-to-r from-purple-50 to-indigo-50 p-5 rounded-2xl border-2 border-purple-200 space-y-3 shadow-sm">
+                                <p class="font-extrabold text-sm text-purple-900">${idx + 1}. ${item.q}</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        `;
+                        item.opts.forEach((opt, oIdx) => {
+                            const isChecked = userAns === oIdx ? 'checked' : '';
+                            quizHTML += `
+                                <label class="flex items-center space-x-3 bg-white p-3.5 rounded-2xl border-2 border-purple-200 text-xs font-semibold cursor-pointer hover:bg-purple-100 transition shadow-sm">
+                                    <input type="radio" name="q_${idx}" value="${oIdx}" ${isChecked} onchange="setQuizAns(${idx}, ${oIdx})" class="text-purple-600 w-4 h-4">
+                                    <span>${opt}</span>
+                                </label>
+                            `;
+                        });
+                        quizHTML += `</div></div>`;
+                    });
+
+                    quizHTML += `
+                            </div>
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage6')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                                <button onclick="submitQuiz()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl transition text-sm">Kumpul Kuis & Lanjut <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML = quizHTML;
+                    break;
+
+                case 'stage8':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="border-b-2 border-purple-200 pb-4">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-black px-4 py-1.5 rounded-full shadow-sm">Tahap 8</span>
+                                <h3 class="text-2xl font-black text-slate-900 mt-2">Refleksi & Status Pengumpulan</h3>
+                                <p class="text-sm text-slate-600 font-medium mt-1">Sampaikan refleksi pembelajaran aturan angka penting dan kirimkan E-LKPD Anda kepada guru.</p>
+                            </div>
+
+                            <div class="space-y-4 bg-gradient-to-br from-purple-50 to-indigo-50 p-6 sm:p-8 rounded-3xl border-2 border-purple-200 shadow-sm">
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">1. Aturan angka penting apa yang paling kamu pahami?</label>
+                                    <textarea id="ref-1" rows="2" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.refleksi.r1 || ''}</textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">2. Aturan angka penting mana yang masih sulit atau membingungkan?</label>
+                                    <textarea id="ref-2" rows="2" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.refleksi.r2 || ''}</textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-purple-900 mb-1">3. Apa manfaat aturan angka penting dalam kegiatan pengukuran sehari-hari?</label>
+                                    <textarea id="ref-3" rows="2" class="w-full p-3.5 border-2 border-purple-200 rounded-2xl text-sm font-medium bg-white" placeholder="Jawaban...">${data.refleksi.r3 || ''}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 sm:p-8 rounded-3xl border-2 border-purple-200 shadow-md space-y-4">
+                                <h4 class="font-black text-purple-900 text-base flex items-center"><i class="fa-solid fa-paper-plane mr-2 text-purple-600 text-xl"></i> Status Pengumpulan E-LKPD</h4>
+                                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-gradient-to-r from-purple-50 to-indigo-50 p-5 rounded-2xl border-2 border-purple-200">
+                                    <div>
+                                        <p class="text-xs text-slate-700 font-bold">Status saat ini: <strong class="${data.submitted ? 'text-emerald-600' : 'text-amber-500'} text-sm">${data.submitted ? 'Sudah Dikumpulkan (' + new Date(data.submitTime).toLocaleString() + ')' : 'Belum Dikumpulkan'}</strong></p>
+                                        <p class="text-xs text-slate-700 font-bold mt-1">Nilai Kuis Anda: <strong class="text-purple-700 text-sm">${data.quiz.score} / 100</strong></p>
+                                        ${data.published ? `<p class="text-xs text-emerald-800 mt-1 font-extrabold">Nilai Akhir Guru: ${data.teacherScore} (${data.teacherFeedback || '-'})</p>` : ''}
+                                    </div>
+                                    <button onclick="finalSubmitLKPD()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 text-white font-extrabold py-4 px-8 rounded-2xl shadow-xl transition text-sm flex items-center space-x-3 transform hover:scale-105">
+                                        <i class="fa-solid fa-circle-check text-lg"></i>
+                                        <span>Kumpulkan LKPD Final</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between pt-4">
+                                <button onclick="switchStudentTab('stage7')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl text-sm transition">Sebelumnya</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function saveStage1() {
+            studentData[currentUser.name].stage1 = {
+                q1: document.getElementById('s1-q1').value,
+                q2: document.getElementById('s1-q2').value
+            };
+            saveStudentDataStorage();
+            showToast('Stimulation berhasil disimpan!');
+            switchStudentTab('stage2');
+        }
+
+        function saveStage2() {
+            studentData[currentUser.name].stage2.rumusan = document.getElementById('s2-rumusan').value;
+            saveStudentDataStorage();
+            showToast('Rumusan masalah berhasil disimpan!');
+            switchStudentTab('stage3');
+        }
+
+        function saveStage3() {
+            studentData[currentUser.name].stage3 = {
+                table1: {
+                    ap1: document.getElementById('s3-t1-ap1').value, al1: document.getElementById('s3-t1-al1').value,
+                    ap2: document.getElementById('s3-t1-ap2').value, al2: document.getElementById('s3-t1-al2').value,
+                    ap3: document.getElementById('s3-t1-ap3').value, al3: document.getElementById('s3-t1-al3').value,
+                    ap4: document.getElementById('s3-t1-ap4').value, al4: document.getElementById('s3-t1-al4').value,
+                    ap5: document.getElementById('s3-t1-ap5').value, al5: document.getElementById('s3-t1-al5').value
+                },
+                soalA: document.getElementById('s3-soalA').value,
+                soalB: document.getElementById('s3-soalB').value,
+                soalC: document.getElementById('s3-soalC').value
+            };
+            saveStudentDataStorage();
+            showToast('Data collection berhasil disimpan!');
+            switchStudentTab('stage4');
+        }
+
+        function saveStage4() {
+            studentData[currentUser.name].stage4 = {
+                proc1: document.getElementById('s4-p1').value,
+                proc2: document.getElementById('s4-p2').value,
+                proc3: document.getElementById('s4-p3').value,
+                proc4: document.getElementById('s4-p4').value
+            };
+            saveStudentDataStorage();
+            showToast('Data processing berhasil disimpan!');
+            switchStudentTab('stage5');
+        }
+
+        function saveStage5() {
+            studentData[currentUser.name].stage5 = {
+                notes: document.getElementById('s5-notes').value,
+                verified: document.getElementById('s5-check').checked
+            };
+            saveStudentDataStorage();
+            showToast('Verifikasi berhasil disimpan!');
+            switchStudentTab('stage6');
+        }
+
+        function saveStage6() {
+            studentData[currentUser.name].stage6 = {
+                gen1: document.getElementById('s6-g1').value,
+                gen2: document.getElementById('s6-g2').value,
+                gen3: document.getElementById('s6-g3').value,
+                gen4: document.getElementById('s6-g4').value,
+                gen5: document.getElementById('s6-g5').value,
+                gen6: document.getElementById('s6-g6').value
+            };
+            saveStudentDataStorage();
+            showToast('Kesimpulan berhasil disimpan!');
+            switchStudentTab('stage7');
+        }
+
+        function setQuizAns(qIdx, optIdx) {
+            studentData[currentUser.name].quiz.answers[qIdx] = optIdx;
+            saveStudentDataStorage();
+        }
+
+        function submitQuiz() {
+            studentData = getStudentDataStorage();
+            const ans = studentData[currentUser.name].quiz.answers;
+            const correctAnswers = [3, 1, 1, 0, 3, 1, 1, 1, 1, 1];
+            let score = 0;
+            correctAnswers.forEach((c, i) => {
+                if (ans[i] === c) score += 10;
+            });
+            studentData[currentUser.name].quiz.score = score;
+            studentData[currentUser.name].quiz.submitted = true;
+            studentData[currentUser.name].submitted = true;
+            if (!studentData[currentUser.name].submitTime) {
+                studentData[currentUser.name].submitTime = new Date().toISOString();
+            }
+            saveStudentDataStorage();
+            showToast(`Kuis dikumpulkan! Nilai Kuis: ${score}`);
+            switchStudentTab('stage8');
+        }
+
+        function finalSubmitLKPD() {
+            studentData = getStudentDataStorage();
+            const data = studentData[currentUser.name];
+            data.refleksi = {
+                r1: document.getElementById('ref-1').value,
+                r2: document.getElementById('ref-2').value,
+                r3: document.getElementById('ref-3').value
+            };
+            data.submitted = true;
+            data.submitTime = new Date().toISOString();
+            saveStudentDataStorage();
+            showToast('E-LKPD berhasil dikumpulkan secara final kepada Guru!');
+            renderStudentTab();
+        }
+
+        // --- TEACHER DASHBOARD CONTROLLER ---
+        function switchTeacherTab(tabId) {
+            currentTeacherTab = tabId;
+            document.querySelectorAll('.t-tab-btn').forEach(btn => {
+                btn.className = "t-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-100 transition";
+            });
+            const activeBtn = document.getElementById(`t-tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "t-tab-btn px-5 py-2.5 rounded-xl text-xs font-extrabold bg-slate-900 text-white shadow transition";
+            }
+            renderTeacherTab();
+        }
+
+        function updateTeacherStats() {
+            studentData = getStudentDataStorage();
+            const students = Object.values(studentData);
+            const total = students.length;
+            const submitted = students.filter(s => s.submitted).length;
+            const pending = total - submitted;
+            let totalQuizScore = 0;
+            students.forEach(s => totalQuizScore += ((s.quiz && s.quiz.score) || 0));
+            const avg = total > 0 ? Math.round(totalQuizScore / total) : 0;
+
+            const elTotal = document.getElementById('stat-total-students');
+            const elSub = document.getElementById('stat-submitted');
+            const elPend = document.getElementById('stat-pending');
+            const elAvg = document.getElementById('stat-avg-score');
+
+            if (elTotal) elTotal.innerText = total;
+            if (elSub) elSub.innerText = submitted;
+            if (elPend) elPend.innerText = pending;
+            if (elAvg) elAvg.innerText = avg;
+        }
+
+        function renderTeacherTab() {
+            updateTeacherStats();
+            studentData = getStudentDataStorage();
+            const panel = document.getElementById('teacher-content-panel');
+            const students = Object.values(studentData);
+
+            if (currentTeacherTab === 'students') {
+                let html = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-black text-slate-900">Daftar Peserta Didik & Respons LKPD</h3>
+                            <button onclick="renderTeacherTab()" class="bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold px-3.5 py-1.5 rounded-xl text-xs transition flex items-center space-x-1.5">
+                                <i class="fa-solid fa-rotate-right"></i><span>Muat Ulang Data</span>
+                            </button>
+                        </div>
+                `;
+                if (students.length === 0) {
+                    html += `<p class="text-sm text-slate-500 py-6 text-center font-medium">Belum ada peserta didik yang masuk atau mengerjakan.</p>`;
+                } else {
+                    html += `<div class="overflow-x-auto"><table class="w-full text-left text-xs sm:text-sm bg-white rounded-2xl overflow-hidden shadow-md border-2 border-purple-200">
+                        <thead><tr class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white font-extrabold">
+                            <th class="p-3.5">Nama Siswa</th><th class="p-3.5">Kelas</th><th class="p-3.5">Status</th><th class="p-3.5">Nilai Kuis</th><th class="p-3.5">Waktu Kumpul</th>
+                        </tr></thead><tbody class="divide-y divide-purple-100 font-medium">`;
+                    students.forEach(s => {
+                        html += `
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">${s.name}</td>
+                                <td class="p-3.5">${s.classVal}</td>
+                                <td class="p-3.5"><span class="px-3 py-1 rounded-full text-xs font-bold ${s.submitted ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${s.submitted ? 'Sudah Kumpul' : 'Belum'}</span></td>
+                                <td class="p-3.5 font-mono font-black text-purple-700">${(s.quiz && s.quiz.score) || 0}</td>
+                                <td class="p-3.5 text-slate-500">${s.submitTime ? new Date(s.submitTime).toLocaleString() : '-'}</td>
+                            </tr>
+                        `;
+                    });
+                    html += `</tbody></table></div>`;
+                }
+                html += `</div>`;
+                panel.innerHTML = html;
+
+            } else if (currentTeacherTab === 'grading') {
+                let html = `
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-black text-slate-900">Pemeriksaan Jawaban Uraian & Penilaian Guru</h3>
+                            <button onclick="renderTeacherTab()" class="bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold px-3.5 py-1.5 rounded-xl text-xs transition flex items-center space-x-1.5">
+                                <i class="fa-solid fa-rotate-right"></i><span>Muat Ulang Data</span>
+                            </button>
+                        </div>
+                `;
+                if (students.length === 0) {
+                    html += `<p class="text-sm text-slate-500 py-6 text-center font-medium">Belum ada data siswa untuk diperiksa.</p>`;
+                } else {
+                    students.forEach((s, idx) => {
+                        html += `
+                            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-3xl border-2 border-purple-200 space-y-4 shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h4 class="font-black text-base text-slate-900">${s.name} <span class="text-xs text-slate-500 font-normal">(${s.classVal})</span></h4>
+                                        <p class="text-xs text-slate-600 font-medium">Nilai Kuis Otomatis: <strong class="text-purple-700">${(s.quiz && s.quiz.score) || 0}</strong> | Status: ${s.submitted ? 'Sudah Kumpul' : 'Belum'}</p>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full text-xs font-black ${s.published ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${s.published ? 'Nilai Dipublikasikan' : 'Belum Dipublikasikan'}</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-700 bg-white p-4 rounded-2xl border-2 border-purple-200 font-medium">
+                                    <div><strong>Rumusan Masalah:</strong><p class="mt-1 text-slate-600 italic">${(s.stage2 && s.stage2.rumusan) || '-'}</p></div>
+                                    <div><strong>Kesimpulan Siswa:</strong><p class="mt-1 text-slate-600 italic">${(s.stage6 && s.stage6.gen1) || '-'}</p></div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center pt-2">
+                                    <div>
+                                        <label class="block text-xs font-black text-purple-900 mb-1">Nilai LKPD (0-100)</label>
+                                        <input type="number" id="grade-${idx}" value="${s.teacherScore !== null ? s.teacherScore : ''}" class="w-full p-3 border-2 border-purple-200 rounded-xl text-sm font-bold bg-white" placeholder="Contoh: 85">
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <label class="block text-xs font-black text-purple-900 mb-1">Umpan Balik & Catatan Guru</label>
+                                        <input type="text" id="feedback-${idx}" value="${s.teacherFeedback || ''}" class="w-full p-3 border-2 border-purple-200 rounded-xl text-sm font-medium bg-white" placeholder="Tuliskan umpan balik...">
+                                    </div>
+                                </div>
+                                <div class="flex justify-end pt-2">
+                                    <button onclick="publishGrade('${s.name}', ${idx})" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3 px-6 rounded-xl text-xs shadow-md transition">
+                                        Simpan & Publikasikan Nilai
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                html += `</div>`;
+                panel.innerHTML = html;
+
+            } else if (currentTeacherTab === 'settings') {
+                panel.innerHTML = `
+                    <div class="space-y-6 max-w-lg">
+                        <h3 class="text-lg font-black text-slate-900">Pengaturan Kode Akses Guru</h3>
+                        <p class="text-sm text-slate-600 font-medium">Ubah kode akses guru untuk keamanan dashboard.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-black text-slate-700 mb-1">KODE AKSES BARU</label>
+                                <input type="text" id="new-teacher-code" placeholder="Masukkan kode baru..." class="w-full p-3.5 border-2 border-slate-300 rounded-2xl text-sm font-medium bg-white">
+                            </div>
+                            <button onclick="updateTeacherCode()" class="bg-slate-900 hover:bg-slate-800 text-yellow-300 font-extrabold py-3.5 px-6 rounded-2xl text-sm shadow-xl transition">
+                                Perbarui Kode Akses
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function publishGrade(studentName, idx) {
+            studentData = getStudentDataStorage();
+            const score = parseInt(document.getElementById(`grade-${idx}`).value);
+            const feedback = document.getElementById(`feedback-${idx}`).value;
+            if (isNaN(score)) {
+                showToast('Masukkan nilai angka yang valid!', 'error');
+                return;
+            }
+            if (studentData[studentName]) {
+                studentData[studentName].teacherScore = score;
+                studentData[studentName].teacherFeedback = feedback;
+                studentData[studentName].published = true;
+                saveStudentDataStorage();
+                showToast(`Nilai untuk ${studentName} berhasil dipublikasikan!`);
+                renderTeacherTab();
+            }
+        }
+
+        function updateTeacherCode() {
+            const newCode = document.getElementById('new-teacher-code').value.trim();
+            if (!newCode) return;
+            teacherAccessCode = newCode;
+            localStorage.setItem('teacher_access_code', newCode);
+            showToast('Kode akses guru berhasil diperbarui!');
+        }
+
+        function exportCSV() {
+            studentData = getStudentDataStorage();
+            let csv = 'Nama,Kelas,Status Kumpul,Nilai Kuis,Nilai LKPD,Waktu Kumpul\n';
+            Object.values(studentData).forEach(s => {
+                csv += `"${s.name}","${s.classVal}","${s.submitted ? 'Sudah' : 'Belum'}",${(s.quiz && s.quiz.score) || 0},${s.teacherScore !== null ? s.teacherScore : '-'},"${s.submitTime || '-'}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'rekap_nilai_elkpd_aturan_angka_penting.csv';
+            link.click();
+            showToast('Rekap CSV berhasil diunduh!');
+        }
+
+        function resetTeacherData() {
+            if (confirm('Yakin ingin mereset seluruh data demo siswa?')) {
+                localStorage.removeItem('elkpd_student_data');
+                studentData = {};
+                renderTeacherTab();
+                showToast('Data demo berhasil direset.');
+            }
+        }
+
+        window.onload = function() {
+            showLanding();
+        };
+    </script>
+</body>
+</html>
